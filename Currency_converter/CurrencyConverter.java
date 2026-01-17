@@ -5,59 +5,82 @@ public class CurrencyConverter {
 
     public static void main(String[] args) {
 
-        // ---------- FRAME ----------
+        // ================= FRAME =================
         JFrame frame = new JFrame("Currency Converter");
-        frame.setSize(400, 320);
+        frame.setSize(450, 380);
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(new Color(245, 248, 255));
+        frame.getContentPane().setBackground(new Color(220, 230, 245));
 
-        // ---------- AMOUNT LABEL ----------
+        // ================= PANEL (CARD) =================
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBounds(40, 30, 350, 300);
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        frame.add(panel);
+
+        // ================= FONTS =================
+        Font labelFont = new Font("Segoe UI", Font.PLAIN, 13);
+        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 14);
+        Font buttonFont = new Font("Segoe UI", Font.BOLD, 14);
+
+        // ================= TITLE =================
+        JLabel title = new JLabel("Currency Converter", SwingConstants.CENTER);
+        title.setBounds(0, 15, 350, 30);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        panel.add(title);
+
+        // ================= AMOUNT =================
         JLabel amountLabel = new JLabel("Amount:");
-        amountLabel.setBounds(30, 30, 100, 30);
-        frame.add(amountLabel);
+        amountLabel.setBounds(30, 60, 80, 25);
+        amountLabel.setFont(labelFont);
+        panel.add(amountLabel);
 
-        // ---------- AMOUNT FIELD ----------
         JTextField amountField = new JTextField();
-        amountField.setBounds(120, 30, 150, 30);
-        frame.add(amountField);
+        amountField.setBounds(120, 60, 180, 30);
+        amountField.setFont(fieldFont);
+        panel.add(amountField);
 
-        // ---------- CURRENCY LIST ----------
+        // ================= CURRENCIES =================
         String[] currencies = {"USD", "BDT", "EUR", "INR", "GBP", "JPY"};
 
-        // ---------- FROM CURRENCY ----------
+        // ================= FROM =================
         JLabel fromLabel = new JLabel("From:");
-        fromLabel.setBounds(30, 80, 100, 30);
-        frame.add(fromLabel);
+        fromLabel.setBounds(30, 105, 80, 25);
+        fromLabel.setFont(labelFont);
+        panel.add(fromLabel);
 
         JComboBox<String> fromCurrency = new JComboBox<>(currencies);
-        fromCurrency.setBounds(120, 80, 100, 30);
-        frame.add(fromCurrency);
+        fromCurrency.setBounds(120, 105, 80, 30);
+        panel.add(fromCurrency);
 
-        // ---------- TO CURRENCY ----------
+        // ================= TO =================
         JLabel toLabel = new JLabel("To:");
-        toLabel.setBounds(30, 120, 100, 30);
-        frame.add(toLabel);
+        toLabel.setBounds(210, 105, 40, 25);
+        toLabel.setFont(labelFont);
+        panel.add(toLabel);
 
         JComboBox<String> toCurrency = new JComboBox<>(currencies);
-        toCurrency.setBounds(120, 120, 100, 30);
-        frame.add(toCurrency);
+        toCurrency.setBounds(250, 105, 80, 30);
+        panel.add(toCurrency);
 
-        // ---------- CONVERT BUTTON ----------
+        // ================= BUTTON =================
         JButton convertButton = new JButton("Convert");
-        convertButton.setBounds(120, 170, 100, 35);
-        convertButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        convertButton.setBackground(new Color(0, 102, 204));
+        convertButton.setBounds(100, 155, 150, 35);
+        convertButton.setFont(buttonFont);
+        convertButton.setBackground(new Color(0, 120, 215));
         convertButton.setForeground(Color.WHITE);
-        frame.add(convertButton);
+        convertButton.setFocusPainted(false);
+        panel.add(convertButton);
 
-        // ---------- RESULT LABEL ----------
-        JLabel resultLabel = new JLabel("Result: ");
-        resultLabel.setBounds(30, 220, 300, 30);
-        resultLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        frame.add(resultLabel);
+        // ================= RESULT =================
+        JLabel resultLabel = new JLabel("Result: ", SwingConstants.CENTER);
+        resultLabel.setBounds(30, 210, 290, 30);
+        resultLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        panel.add(resultLabel);
 
-        // ---------- BUTTON ACTION ----------
+        // ================= BUTTON ACTION =================
         convertButton.addActionListener(e -> {
 
             try {
@@ -65,7 +88,7 @@ public class CurrencyConverter {
                 String from = (String) fromCurrency.getSelectedItem();
                 String to = (String) toCurrency.getSelectedItem();
 
-                // STEP 1: FROM -> USD
+                // ----- STEP 1: FROM -> USD -----
                 double amountInUSD = 0;
 
                 if (from.equals("USD")) amountInUSD = amount;
@@ -75,7 +98,7 @@ public class CurrencyConverter {
                 else if (from.equals("GBP")) amountInUSD = amount * 1.27;
                 else if (from.equals("JPY")) amountInUSD = amount * 0.0068;
 
-                // STEP 2: USD -> TO
+                // ----- STEP 2: USD -> TO -----
                 double result = 0;
 
                 if (to.equals("USD")) result = amountInUSD;
@@ -92,7 +115,7 @@ public class CurrencyConverter {
             }
         });
 
-        // ---------- SHOW FRAME ----------
+        // ================= SHOW =================
         frame.setVisible(true);
     }
 }
